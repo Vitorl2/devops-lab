@@ -1,0 +1,30 @@
+---
+- name: Configuração Completa do Servidor Web
+  hosts: localhost
+  connection: local
+  become: true  # Executa como superusuário (sudo) [4]
+
+  tasks:
+    - name: 1. Instalar o servidor Apache
+      dnf:
+        name: httpd
+        state: present
+
+    - name: 2. Garantir que o Apache esteja rodando e habilitado
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: 3. Abrir a porta 80 (HTTP) no Firewall
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true # Aplica a regra agora mesmo [5]
+
+    - name: 4. Criar página personalizada do laboratório
+      copy:
+        content: "<h1>Bem-vindo ao Lab DevOps do Vitor!</h1>"
+        dest: "/var/www/html/index.html"
+
