@@ -1,0 +1,15 @@
+---
+- name: Automação com Variáveis
+  hosts: localhost
+  connection: local
+  become: true
+  
+  vars:
+    dono_do_lab: "Vitor"
+    projeto: "Treinamento IaC"
+
+  tasks:
+    - name: Criar página HTML dinâmica
+      copy:
+        content: "<h1>Servidor de {{ dono_do_lab }}</h1><p>Projeto: {{ projeto }}</p>"
+        dest: "/var/www/html/index.html"
