@@ -1,0 +1,19 @@
+---
+- name: Playbook Inteligente com Handlers
+  hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+    - name: Garantir que o Apache tenha um nome personalizado
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^#ServerName'
+        line: "ServerName meu-lab-devops:80"
+      notify: Reiniciar o Apache  # Aqui está o gatilho!
+
+  handlers:
+    - name: Reiniciar o Apache
+      service:
+        name: httpd
+        state: restarted
