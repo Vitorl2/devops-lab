@@ -9,7 +9,7 @@
       lineinfile:
         path: /etc/httpd/conf/httpd.conf
         regexp: '^#ServerName'
-        line: "ServerName meu-lab-devops:80"
+        line: "ServerName vitor:80"
       notify: Reiniciar o Apache  # Aqui está o gatilho!
 
   handlers:
