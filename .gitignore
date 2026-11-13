@@ -1,1 +1,3 @@
 .vagrant/
+linux-lab_default_*/
+*.log
